@@ -1,0 +1,29 @@
+.main {
+  margin-top: 40px;
+  margin: auto;
+  max-width: 880px;
+  width: 100%;
+}
+
+
+.html {
+  line-height: 1.5;
+}
+
+.page {
+  margin: 0;
+  background: #000;
+  margin: 0;
+  color: white;
+}
+
+
+@media (max-width: 320px) {
+  .page {
+    max-width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
