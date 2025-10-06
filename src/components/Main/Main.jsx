@@ -3,16 +3,20 @@ import perfilImg from "../../images/perfil-image.jpg";
 import add from "../../images/add.png";
 import { useState } from "react";
 import EditAvatar from "./components/Popup/components/EditAvatar/EditAvatar";
-import EditProfile from "./components/Popup/components/EditProfile/EditPtofile";
+import EditProfile from "./components/Popup/components/EditProfile/EditProfile";
 import NewCard from "./components/Popup/components/NewCard/NewCard";
 import Popup from "./components/Popup/Popup";
 import Card from "./components/Card/Card";
 
+
 function Main() {
+
   const [popup, setPopup] = useState(null);
   const newCardPopup = { title: "Novo Local", children: <NewCard /> };
   const editProfile = { title: "Editar Perfil", children: <EditProfile /> };
   const editAvatar = { title: "Editar Avatar", children: <EditAvatar /> };
+  
+
 
 
   const cards = [
@@ -34,7 +38,7 @@ function Main() {
     },
   ];
 
-  console.log(cards);
+
 
   function handleOpenPopup(popup) {
     setPopup(popup);
@@ -94,11 +98,15 @@ function Main() {
             ))}
         
         </ul>
-        {popup && (
-          <Popup onClose={handleClosePopup} title={popup.title}>
-            {popup.children}
-          </Popup>
-        )}
+       {popup && (
+  <Popup
+    onClose={handleClosePopup}
+    title={popup.title}
+    isImagePopup={popup.isImagePopup}
+  >
+    {popup.children}
+  </Popup>
+)}
       </main>
     </>
   );

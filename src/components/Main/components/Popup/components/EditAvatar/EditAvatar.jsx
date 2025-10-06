@@ -1,5 +1,6 @@
 export default function EditAvatar() {
   return (
+    
     <div className="form__group">
       <form className="form" id="avatarForm">
         <input
@@ -13,5 +14,7 @@ export default function EditAvatar() {
         <button className="avatar__button submit">Salvar</button>
       </form>
     </div>
+    
+
   );
 }

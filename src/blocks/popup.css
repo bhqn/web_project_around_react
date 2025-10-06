@@ -14,7 +14,16 @@
   flex-direction: column;
 }
 
-.popup__card {
+
+.popup__content_content_image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.popup__content {
   position: relative;
   background: #fff;
   border-radius: 10px;
@@ -46,7 +55,7 @@
   width: 430px;
 }
 
-.popup__tittle {
+.popup__title {
   color: black;
   margin: 0 0 54px 0;
 
@@ -110,7 +119,7 @@
     top: 123px;
   }
 
-    .popup__tittle {
+    .popup__title {
     color: black;
     margin: 0 0 54px 0;
     width: 100%;

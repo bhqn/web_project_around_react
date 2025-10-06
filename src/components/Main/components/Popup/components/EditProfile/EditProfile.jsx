@@ -1,5 +1,6 @@
 export default function EditProfile(){
     return(
+        
          <form className="form">
               <fieldset className="form__fieldset">
                 <div className="form__group-name">
@@ -29,5 +30,7 @@ export default function EditProfile(){
               </fieldset>
               <button className="edit__button-save" disabled>Salvar</button>
             </form>
+   
     );
+
 }

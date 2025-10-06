@@ -5,11 +5,11 @@ export default function Card(props) {
   const { handleOpenPopup } = props; // Recebe a função como prop
   
   // Crie o objeto imageComponent
-  const imageComponent = {
-    title: null, // ImagePopup não tem título
-    children: <ImagePopup card={props.card} />
-  };
-  
+const imageComponent = {
+  title: null,
+  isImagePopup: true,
+  children: <ImagePopup card={props.card} />
+};
   return (
     <li className="gallery__card">
       <button className="card__button-remove"></button>

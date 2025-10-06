@@ -1,19 +1,19 @@
-function Popup(props) {
-  const { onClose, title, children } = props;
+export default function Popup(props) {
+  const { onClose, title, children, isImagePopup } = props;
+   console.log("Props recebidas no Popup:", props); // Adicione esta linha
+  console.log("isImagePopup:", isImagePopup); // E esta também
   return (
-    <div className="popup" id="addCard">
-      <div className="popup__card">
+    <div className="popup">
+      <div className={isImagePopup ? "popup__content_content_image" : "popup__content"}>
         <button
-          className="popup__close"
-          id="closeAddButton"
           aria-label="Close modal"
+          className="popup__close"
+          type="button"
           onClick={onClose}
-        ></button>
-        <h3 className="popup__tittle">{title}</h3>
+        />
+        {title && <h3 className="popup__title">{title}</h3>}
         {children}
       </div>
     </div>
   );
 }
-
-export default Popup;
