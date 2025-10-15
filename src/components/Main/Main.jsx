@@ -1,12 +1,15 @@
 import pencil from "../../images/pencil.png";
 import perfilImg from "../../images/perfil-image.jpg";
 import add from "../../images/add.png";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import EditAvatar from "./components/Popup/components/EditAvatar/EditAvatar";
 import EditProfile from "./components/Popup/components/EditProfile/EditProfile";
 import NewCard from "./components/Popup/components/NewCard/NewCard";
 import Popup from "./components/Popup/Popup";
 import Card from "./components/Card/Card";
+import { api } from "../../utils/api";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 
 
 function Main() {
@@ -15,28 +18,20 @@ function Main() {
   const newCardPopup = { title: "Novo Local", children: <NewCard /> };
   const editProfile = { title: "Editar Perfil", children: <EditProfile /> };
   const editAvatar = { title: "Editar Avatar", children: <EditAvatar /> };
-  
+  const currentUser = useContext(CurrentUserContext);
+  const [cards, setCards] = useState([])
 
 
+ useEffect(() => {
+    api.getInitialCards() // ← Chama sua API
+      .then((cardsData) => {
+        setCards(cardsData); // ← AQUI você define os dados no estado!
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar cartões:', error);
+      });
+  }, []);
 
-  const cards = [
-    {
-      isLiked: false,
-      _id: "5d1f0611d321eb4bdcd707dd",
-      name: "Yosemite Valley",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:10:57.741Z",
-    },
-    {
-      isLiked: false,
-      _id: "5d1f064ed321eb4bdcd707de",
-      name: "Lake Louise",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-      owner: "5d1f0611d321eb4bdcd707dd",
-      createdAt: "2019-07-05T08:11:58.324Z",
-    },
-  ];
 
 
 
@@ -55,8 +50,9 @@ function Main() {
           <div className="profile__picture-wrapper">
             <img
               className="profile__picture"
-              src={perfilImg}
+              src={currentUser.avatar || perfilImg}
               alt="imagem de perfil"
+
             />
             <div
               className="profile__overlay"
@@ -67,8 +63,8 @@ function Main() {
           </div>
           <div className="profile__content">
             <div className="profile__info">
-              <h1 className="profile__name">Profile Name</h1>
-              <p className="profile__description"></p>
+              <h1 className="profile__name">{currentUser.name}</h1>
+              <p className="profile__description">{currentUser.about}</p>
             </div>
             <button
               className="profile__button-edit"
