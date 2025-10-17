@@ -136,29 +136,7 @@ function App() {
           selectedCard={selectedCard}
         />
         <Footer />
-        {popup && (
-          <Popup
-            isOpen={true}
-            onClose={handleClosePopup}
-            isImagePopup={popup === "imagePopup"}
-            title={
-              popup === "editProfile"
-                ? "Editar Perfil"
-                : popup === "editAvatar"
-                ? "Editar Avatar"
-                : popup === "newCard"
-                ? "Novo Lugar"
-                : null
-            }
-          >
-            {popup === "editProfile" && <EditProfile />}
-            {popup === "editAvatar" && <EditAvatar />}
-            {popup === "newCard" && (
-              <NewCard onAddPlaceSubmit={handleAddPlaceSubmit} />
-            )}
-            {popup === "imagePopup" && <ImagePopup card={selectedCard} />}
-          </Popup>
-        )}
+
       </CurrentUserContext.Provider>
     </div>
   );
