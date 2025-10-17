@@ -2,11 +2,26 @@ import pencil from "../../images/pencil.png";
 import perfilImg from "../../images/perfil-image.jpg";
 import add from "../../images/add.png";
 import Card from "./components/Card/Card";
+import Popup from "./components/Popup/Popup";
+import EditProfile from "./components/Popup/components/EditProfile/EditProfile";
+import EditAvatar from "./components/Popup/components/EditAvatar/EditAvatar";
+import NewCard from "./components/Popup/components/NewCard/NewCard";
+import ImagePopup from "./components/ImagePopup/ImagePopup.jsx";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function Main({ onOpenPopup, cards, onCardLike, onCardDelete, onCardClick }) {
+function Main({
+  cards,
+  onCardLike,
+  onCardDelete,
+  onOpenPopup,
+  onClosePopup,
+  onAddPlaceSubmit,
+  popup,
+  onCardClick,
+  selectedCard,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -65,6 +80,30 @@ function Main({ onOpenPopup, cards, onCardLike, onCardDelete, onCardClick }) {
               />
             ))}
         </ul>
+
+        {popup && (
+          <Popup
+            isOpen={true}
+            onClose={onClosePopup}
+            isImagePopup={popup === "imagePopup"}
+            title={
+              popup === "editProfile"
+                ? "Editar Perfil"
+                : popup === "editAvatar"
+                ? "Editar Avatar"
+                : popup === "newCard"
+                ? "Novo Lugar"
+                : null
+            }
+          >
+            {popup === "editProfile" && <EditProfile />}
+            {popup === "editAvatar" && <EditAvatar />}
+            {popup === "newCard" && (
+              <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />
+            )}
+            {popup === "imagePopup" && <ImagePopup card={selectedCard} />}
+          </Popup>
+        )}
       </main>
     </>
   );

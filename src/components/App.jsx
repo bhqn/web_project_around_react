@@ -133,6 +133,7 @@ function App() {
           onAddPlaceSubmit={handleAddPlaceSubmit}
           popup={popup}
           onCardClick={handleCardClick}
+          selectedCard={selectedCard}
         />
         <Footer />
         {popup && (
