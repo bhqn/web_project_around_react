@@ -1,12 +1,8 @@
-
-
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
   }
-
-  
 
   _handleServerResponse(res) {
     if (res.ok) {
@@ -27,48 +23,58 @@ class Api {
     }).then(this._handleServerResponse);
   }
 
+  // metodo para adicionar like
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._handleServerResponse);
+  }
 
+  // metodo para remover like
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._handleServerResponse);
+  }
 
-addLike(cardId) {
-  return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-    method: "PUT",
-    headers: this._headers,
-  }).then(this._handleServerResponse);
-}
+  changeLikeCardStatus(cardId, isLiked) {
+    // Se isLiked for true, remove a curtida (DELETE)
+    // Se isLiked for false, adiciona a curtida (PUT)
+    if (!isLiked) {
+      return this.removeLike(cardId);
+    } else {
+      return this.addLike(cardId);
+    }
+  }
 
-updateUserInfo(data) {
-  return fetch(`${this._baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: this._headers,
-    body: JSON.stringify({
-      name: data.name,
-      about: data.about
-    })
-  }).then(this._handleServerResponse);
-}
+  updateUserInfo(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      }),
+    }).then(this._handleServerResponse);
+  }
 
-updateAvatarInfo(data) {
-  console.log("Enviando para API:", data);
+  updateAvatarInfo(data) {
+    console.log("Enviando para API:", data);
 
-  return fetch(`${this._baseUrl}/users/me/avatar`, {
-    method: "PATCH",
-    headers: this._headers,
-    body: JSON.stringify({
-      avatar: data.avatar
-    })
-  }).then(this._handleServerResponse);
-}
-
-removeLike(cardId) {
-  return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-    method: "DELETE",
-    headers: this._headers,
-  }).then(this._handleServerResponse);
-}
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar,
+      }),
+    }).then(this._handleServerResponse);
+  }
 
   // criar card
 
-  createCard(data) {
+  addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -89,7 +95,7 @@ removeLike(cardId) {
   }
 
   getAppInfo() {
-    return Promise.all([this.getInitialCards(), this.getUserInfo(), ]);
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 }
 
@@ -101,4 +107,4 @@ const api = new Api({
   },
 });
 
-export { api };
+export default api;

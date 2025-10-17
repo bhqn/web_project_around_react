@@ -27,7 +27,7 @@
   background: url("../images/Trashhover.svg") no-repeat center;
 }
 
-.card__button {
+.card__like-button {
   width: 24px;
   height: 24px;
   background-image: url("../images/like.svg");
@@ -45,7 +45,7 @@
   background-color: rgba(0, 0, 0, 0.496);
 }
 
-.card__button--active {
+.card__like-button_is-active {
   background-color: black;
   background-image: url("../images/Union.png");
   mask: url("../images/Union.png") no-repeat center;
