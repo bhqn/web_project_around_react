@@ -36,7 +36,7 @@ function Main({
             />
             <div
               className="profile__overlay"
-              onClick={() => onOpenPopup("EditAvatar")}
+              onClick={() => onOpenPopup("editAvatar")}
             >
               <img src={pencil} alt="Editar" className="profile__icon" />
             </div>
