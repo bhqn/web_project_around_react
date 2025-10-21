@@ -25,7 +25,7 @@ function Main({
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
-    <>
+  
       <main className="main">
         <section className="profile">
           <div className="profile__picture-wrapper">
@@ -105,7 +105,7 @@ function Main({
           </Popup>
         )}
       </main>
-    </>
+
   );
 }
 

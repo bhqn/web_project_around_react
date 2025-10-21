@@ -35,7 +35,7 @@ export default function Card(props) {
       />
       <img
         src={link}
-        alt=""
+        alt={name}
         className="gallery__image"
         onClick={handleImageClick}
       />

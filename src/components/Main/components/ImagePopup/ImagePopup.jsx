@@ -7,7 +7,7 @@ export default function ImagePopup(props) {
       <img
         src={link}
         className="modal__image"
-        alt="Imagem ampliada de uma foto da galeria"
+        alt={name}
       />
       <h1 className="modal__title">{name}</h1>
     </div>

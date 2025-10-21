@@ -4,6 +4,13 @@ class Api {
     this._headers = options.headers;
   }
 
+  _makeRequest(endpoint, options = {}) {
+    return fetch(`${this._baseUrl}${endpoint}`, {
+      headers: this._headers,
+      ...options,
+    }).then((res) => this._handleServerResponse(res));
+  }
+
   _handleServerResponse(res) {
     if (res.ok) {
       return res.json();
@@ -12,86 +19,74 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    }).then(this._handleServerResponse);
+    return this._makeRequest('/cards');
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    }).then(this._handleServerResponse);
+    return this._makeRequest('/users/me');
   }
 
   // metodo para adicionar like
   addLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._makeRequest(`/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: this._headers,
-    }).then(this._handleServerResponse);
+    });
   }
 
   // metodo para remover like
   removeLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._makeRequest(`/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then(this._handleServerResponse);
+    });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
     // Se isLiked for true, remove a curtida (DELETE)
     // Se isLiked for false, adiciona a curtida (PUT)
-    if (!isLiked) {
-      return this.removeLike(cardId);
-    } else {
+    if (isLiked) {
       return this.addLike(cardId);
+    } else {
+      return this.removeLike(cardId);
     }
   }
 
   updateUserInfo(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._makeRequest('/users/me', {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
       }),
-    }).then(this._handleServerResponse);
+    });
   }
 
   updateAvatarInfo(data) {
     console.log("Enviando para API:", data);
 
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._makeRequest('/users/me/avatar', {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    }).then(this._handleServerResponse);
+    });
   }
 
   // criar card
-
   addCard(data) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._makeRequest('/cards', {
       method: "POST",
-      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-    }).then(this._handleServerResponse);
+    });
   }
 
   // remover card
-
   removeCard(cardid) {
-    return fetch(`${this._baseUrl}/cards/${cardid}`, {
+    return this._makeRequest(`/cards/${cardid}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then(this._handleServerResponse);
+    });
   }
 
   getAppInfo() {

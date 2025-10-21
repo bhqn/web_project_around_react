@@ -4,8 +4,8 @@ import CurrentUserContext from "../../../../../../contexts/CurrentUserContext";
 export default function EditProfile() {
   const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
 
-  const [name, setName] = useState(currentUser.name);
-  const [description, setDescription] = useState(currentUser.about);
+  const [name, setName] = useState(currentUser?.name || "");
+  const [description, setDescription] = useState(currentUser?.about || "");
 
   const handleNameChange = (evt) => {
     setName(evt.target.value);
